@@ -1,0 +1,2 @@
+# sudopy
+solver of sudoky
