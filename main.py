@@ -1,5 +1,5 @@
-import errorHandler as er
-import Checker as ch
+import error_handler as er
+import checker as ch
 import transformer as op
 
 
