@@ -1,2 +1,2 @@
 # sudopy
-solver of sudoky
+solver of sudoku
