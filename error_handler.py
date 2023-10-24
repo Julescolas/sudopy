@@ -3,11 +3,17 @@ import os.path
 
 
 def error_handling() -> list[list[int]]:
-    if len(sys.argv) != 2:
-        print(f"Error, there should be only one argument got {len(sys.argv) - 1}")
+    if len(sys.argv) != 3:
+        print(f"Error, there should be two arguments got {len(sys.argv) - 1}")
         exit(84)
     if not os.path.isfile(sys.argv[1]):
         print("The argument should be a file")
+        exit(84)
+    if not sys.argv[2].isdigit():
+        print(f"Error, the second argument should be a number, got {sys.argv[2]}")
+        exit(84)
+    if int(sys.argv[2]) < 1 or int(sys.argv[2]) > 2:
+        print(f"Error, the second argument should be a number between 1 or 2, got {sys.argv[2]}")
         exit(84)
     contents = []
     with open(sys.argv[1]) as f:

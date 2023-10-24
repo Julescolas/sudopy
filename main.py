@@ -1,3 +1,5 @@
+import sys
+
 import error_handler as er
 import checker as ch
 import transformer as op
@@ -30,12 +32,13 @@ def get_value_to_place(line_col: list[int], line_tab: list[int], line: list[int]
     return value_to_place, True
 
 
-def sudopy(board: list[list[int]], possible_place: list[(int, int, list[int])]):
+def backtracking(board: list[list[int]], possible_place: list[(int, int, list[int])]) -> list[list[int]]:
     index = 0
     while (not ch.is_board_finish(board)):
         line_col = op.transform_col_lign(board, possible_place[index][1])
         line_tab = op.transform_square_lign(board, possible_place[index][0], possible_place[index][1])
-        value, is_legal = get_value_to_place(line_col, line_tab, board[possible_place[index][0]], possible_place[index][2])
+        value, is_legal = get_value_to_place(line_col, line_tab, board[possible_place[index][0]],
+                                             possible_place[index][2])
         if not is_legal:
             if index != 0:
                 possible_place = reset_already_placed_list(index, possible_place)
@@ -49,10 +52,22 @@ def sudopy(board: list[list[int]], possible_place: list[(int, int, list[int])]):
     return board
 
 
+def stochastic(board: list[list[int]], possible_place: list[(int, int, list[int])]) -> list[list[int]]:
+    return board
+
+
+def sudopy(board: list[list[int]], possible_place: list[(int, int, list[int])], algoType) -> list[list[int]]:
+    if algoType == 1:
+        return backtracking(board, possible_place)
+    if algoType == 2:
+        return stochastic(board, possible_place)
+
+
+
 try:
     start_board = er.error_handling()
     possible_place = create_list_tuple(start_board)
-    final_board = sudopy(start_board, possible_place)
+    final_board = sudopy(start_board, possible_place, int(sys.argv[2]))
     for lign in final_board:
         print(lign)
 except Exception as e:
