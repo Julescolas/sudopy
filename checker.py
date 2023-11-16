@@ -30,3 +30,17 @@ def is_board_finish(board: list[list[int]]) -> bool:
             if col == 0:
                 return False
     return True
+
+
+def find_all_error(board: list[list[int]]) -> int:
+    errors = 0
+    for i in range(len(board)):
+        for y in range(len(board)):
+            line_col = op.transform_col_lign(board, i)
+            line_tab = op.transform_square_lign(board, i, y)
+            if not legal_line(board[i]) or not legal_line(line_col) or not legal_line(line_tab):
+                errors += 1
+            if board[i][y] == 0:
+                errors += 1
+    return errors
+
